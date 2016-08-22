@@ -23,7 +23,7 @@ public class GMailPage {
     @Step
     public static void sendMail(String email, String text) {
         $(byText("COMPOSE")).click();
-        $(byName("to")).val(email);
+        $(byName("to")).setValue(email);
         $(byName("subjectbox")).setValue(text);
         $(byText("Send")).click();
     }
@@ -40,7 +40,7 @@ public class GMailPage {
 
     @Step
     public static void search(String text) {
-        $(byName("q")).val(text).pressEnter();
+        $(byName("q")).setValue(text).pressEnter();
     }
 
     @Step
