@@ -1,4 +1,4 @@
-package com.gmail;
+package com.gmail.testdata;
 
 /**
  * Created by barocko on 8/22/2016.

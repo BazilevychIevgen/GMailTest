@@ -1,8 +1,10 @@
-package com.gmail;
+package com.gmail.pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import ru.yandex.qatools.allure.annotations.Step;
 
+import static com.codeborne.selenide.CollectionCondition.exactTexts;
+import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Condition.hasText;
 import static com.codeborne.selenide.Condition.text;
@@ -16,20 +18,20 @@ import static com.codeborne.selenide.Selenide.$$;
  * Created by barocko on 8/22/2016.
  */
 
-public class GMailPage {
+public class GMail{
 
     public static ElementsCollection mails = $$("[role='main'] .zA");
 
     @Step
-    public static void sendMail(String email, String text) {
+    public static void sendMail(String email, String mailSubject) {
         $(byText("COMPOSE")).click();
         $(byName("to")).setValue(email);
-        $(byName("subjectbox")).setValue(text);
+        $(byName("subjectbox")).setValue(mailSubject);
         $(byText("Send")).click();
     }
 
     @Step
-    public static void assertMail(int index, String mailText) {
+    public static void assertMail(int index,String mailText) {
         mails.get(index).shouldHave(text(mailText));
     }
 
@@ -39,17 +41,23 @@ public class GMailPage {
     }
 
     @Step
-    public static void search(String text) {
+    public static void searchMail(String text) {
         $(byName("q")).setValue(text).pressEnter();
     }
 
     @Step
-    public static void assertSearchResultEqual(int number) {
-        mails.shouldHaveSize(number);
-    }
-
     public static void goToInbox() {
         $(byTitle("Inbox")).click();
+    }
+
+    @Step
+    public static void assertMails(String... mailTexts){
+        mails.shouldHave(texts(mailTexts));
+    }
+
+    @Step
+    public static void refresh() {
+        $(".asf").click();
     }
 }
 
