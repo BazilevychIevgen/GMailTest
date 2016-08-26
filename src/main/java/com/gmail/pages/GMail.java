@@ -13,6 +13,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.byTitle;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.open;
 
 /**
  * Created by barocko on 8/22/2016.
@@ -23,10 +24,10 @@ public class GMail{
     public static ElementsCollection mails = $$("[role='main'] .zA");
 
     @Step
-    public static void sendMail(String email, String mailSubject) {
+    public static void send(String email, String subject) {
         $(byText("COMPOSE")).click();
         $(byName("to")).setValue(email);
-        $(byName("subjectbox")).setValue(mailSubject);
+        $(byName("subjectbox")).setValue(subject);
         $(byText("Send")).click();
     }
 
@@ -41,7 +42,7 @@ public class GMail{
     }
 
     @Step
-    public static void searchMail(String text) {
+    public static void search(String text) {
         $(byName("q")).setValue(text).pressEnter();
     }
 
@@ -58,6 +59,11 @@ public class GMail{
     @Step
     public static void refresh() {
         $(".asf").click();
+    }
+
+    @Step
+    public static void visit() {
+        open("http://gmail.com");
     }
 }
 

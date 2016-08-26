@@ -4,6 +4,8 @@ package com.gmail;
  * Created by barocko on 8/22/2016.
  */
 import com.codeborne.selenide.Configuration;
+import com.gmail.pages.GMail;
+import com.gmail.pages.Login;
 import com.gmail.testconfigs.BaseTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -30,26 +32,22 @@ public class GMailTest extends BaseTest {
     @Test
     public void  testLoginSendReceiveAndSearch() {
 
-        openGmail();
+        GMail.visit();
 
-        login(email, password);
+        Login.login(email, password);
 
         String mailSubject = "Hi" + new Date().getTime();
-        sendMail(email, mailSubject);
+        GMail.send(email, mailSubject);
 
-        refresh();
-        assertMail(0,mailSubject);
+        GMail.refresh();
+        GMail.assertMail(0,mailSubject);
 
-        goToSent();
-        assertMail(0,mailSubject);
+        GMail.goToSent();
+        GMail.assertMail(0,mailSubject);
 
-        goToInbox();
-        searchMail(mailSubject);
-        assertMails(mailSubject);
-    }
-
-    public void openGmail() {
-        open("http://gmail.com");
+        GMail.goToInbox();
+        GMail.search(mailSubject);
+        GMail.assertMails(mailSubject);
     }
 
 }
